@@ -1,6 +1,6 @@
 
 import express from "express";
-import TeacherReportController from "../controllers/TeacherReportController.js";
+import TeacherReportController from "../controllers/teacherReportController.js";
 
 const teacherRouter = express.Router();
 teacherRouter.get("/students", TeacherReportController.getStudents);
