@@ -1,15 +1,22 @@
-import mysql from "mysql";
+import mysql from "mysql2";
+import dotenv from "dotenv";
+import path from "path"; // ✅ add this
+import { URL } from "url";
 
-// ======================= Database Config =======================
+// Load .env from env folder
+dotenv.config({ path: path.resolve("./env/.env") });
+
+// Parse the DATABASE_URL
+const dbUrl = new URL(process.env.DATABASE_URL);
+console.log(process.env.DATABASE_URL);
+
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "may220001", 
-  database: "qr_attendance",
+  host: dbUrl.hostname,
+  user: dbUrl.username,
+  password: dbUrl.password,
+  database: dbUrl.pathname.replace("/", ""),
+  port: dbUrl.port || 3306,
 });
-
-
-
 
 db.connect((err) => {
   if (err) {
