@@ -1,6 +1,6 @@
 import mysql from "mysql2";
 import dotenv from "dotenv";
-import path from "path"; // ✅ add this
+import path from "path";
 import { URL } from "url";
 
 // Load .env from env folder
@@ -24,6 +24,15 @@ db.connect((err) => {
     return;
   }
   console.log("MySQL connected successfully!");
+
+  // 🔍 Test query
+  db.query("SELECT 1 + 1 AS result", (err, rows) => {
+    if (err) {
+      console.error("Test query failed:", err.message);
+    } else {
+      console.log("Test query result:", rows[0].result);
+    }
+  });
 });
 
 export default db;
